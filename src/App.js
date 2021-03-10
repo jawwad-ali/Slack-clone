@@ -8,6 +8,7 @@ import {
 import Header from "./components/Header"
 import SideBar from "./components/SideBar"
 import styled from "styled-components"
+import Chat from "./components/Chat"
 
 function App() {
   return (
@@ -19,7 +20,7 @@ function App() {
             <SideBar />
             <Switch>
               <Route path="/" exact>
-                {/* Chat */}
+                <Chat />
               </Route>
             </Switch>
           </AppBody>
@@ -36,4 +37,4 @@ const AppBody = styled.div`
   display:100vh;
 `
 
-// Start from 01.05.34
+// Start from 2.03.39
