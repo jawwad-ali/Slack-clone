@@ -3,7 +3,6 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
 } from "react-router-dom";
 import Header from "./components/Header"
 import SideBar from "./components/SideBar"
@@ -37,4 +36,4 @@ const AppBody = styled.div`
   display:100vh;
 `
 
-// Start from 2.03.39
+// Start from 2.38.00

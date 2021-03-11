@@ -1,23 +1,69 @@
 import { InfoOutlined, StarBorderOutlined } from '@material-ui/icons'
 import React from 'react'
 import styled from "styled-components"
+import ChatInput from './ChatInput'
+import { useSelector } from "react-redux"
+import { selectRoomId } from '../features/appSlice'
+import { useCollection } from "react-firebase-hooks/firestore"
+import { useDocument } from "react-firebase-hooks/firestore"
+import { db } from '../firebase'
+import Message from "./Message"
 
 function Chat() {
+    const roomId = useSelector(selectRoomId)
+
+    //roomID 
+    const [roomDetails] = useDocument(
+        roomId && db.collection('rooms').doc(roomId)
+    )
+    // getting the messages by asceding order from db
+    const [roomMessages] = useCollection(
+        roomId &&
+        db.collection('rooms')
+            .doc(roomId)
+            .collection('messages')
+            .orderBy('timestamp', 'asc')
+    )
+
     return (
         <ChatContainer>
-            <Header>
-                <HeaderLeft>
-                    <h4>#Room name </h4>
-                    <StarBorderOutlined />
-                </HeaderLeft>
+            <>
+                <Header>
+                    <HeaderLeft>
+                        <h4>#{roomDetails?.data().name}</h4>
+                        <StarBorderOutlined />
+                    </HeaderLeft>
 
-                <HeaderRight>
-                    <p>
-                        <InfoOutlined /> Details
+                    <HeaderRight>
+                        <p>
+                            <InfoOutlined /> Details
                         </p>
-                </HeaderRight>
+                    </HeaderRight>
 
-            </Header>
+                </Header>
+
+                <ChatMessages>
+                    {
+                        roomMessages?.docs.map((doc) => {
+                            const { userName, userImage, timestamp, message } = doc.data()
+                            return (
+                                <Message
+                                    key={doc.id}
+                                    message={message}
+                                    timestamp={timestamp}
+                                    userName={userName}
+                                    userImage={userImage}
+                                />
+                            )
+                        })
+                    }
+                </ChatMessages>
+                <ChatInput
+                    channelId={roomId}
+                    channelName={roomDetails?.data().name}
+                />
+
+            </>
         </ChatContainer>
     )
 }
@@ -63,3 +109,5 @@ const HeaderRight = styled.div`
         font-size:16px;
     }
 `
+
+const ChatMessages = styled.div``
