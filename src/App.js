@@ -86,5 +86,3 @@ const AppLoadingContents = styled.div`
   }
 
 `
-
-// Start from 2.44.15
