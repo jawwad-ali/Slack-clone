@@ -17,7 +17,7 @@ import { db } from '../firebase'
 import { useCollection } from "react-firebase-hooks/firestore"
 
 function SideBar() {
-    const [channels, loading, error] = useCollection(db.collection("rooms"))
+    const [channels] = useCollection(db.collection("rooms"))
 
     return (
         <>
@@ -66,8 +66,8 @@ export default SideBar
 const SideBarContainer = styled.div`
     background-color:var(--slack-color);
     color:white;
+    height: 100vh;
     flex:0.3;
-    height:100vh;
     border-top:1px solid #49274b;
     max-width:260px;
     margin-top:60px;
@@ -82,6 +82,7 @@ const SideBarHeader = styled.div`
     display: flex;
     border-bottom:1px solid #49274b;
     padding:13px;
+    margin-top:60px;
 
     > .MuiSvgIcon-root {
         padding:8px;

@@ -2,7 +2,6 @@ import React from 'react'
 import styled from "styled-components"
 
 function Message({ userName, userImage, timestamp, message }) {
-    console.log(message)
     return (
         <div>
             <MessageContainer>
