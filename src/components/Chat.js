@@ -33,8 +33,8 @@ function Chat() {
     }, [roomId, loading])
 
     return (
-        <>
-            <ChatContainer >
+        <ChatContainer>
+            { roomDetails && roomMessages && (
                 <>
                     <Header>
                         <HeaderLeft>
@@ -44,7 +44,7 @@ function Chat() {
                         <HeaderRight>
                             <p>
                                 <InfoOutlined /> Details
-                        </p>
+                                </p>
                         </HeaderRight>
                     </Header>
 
@@ -70,14 +70,14 @@ function Chat() {
                         channelName={roomDetails?.data().name}
                     />
                 </>
-            </ChatContainer>
-        </>
+            )}
+        </ChatContainer>
     )
 }
 
 export default Chat
 
-const Header = styled.div`
+const Header = styled.div` 
     display:flex;
     justify-content:space-between;
     padding:20px;
@@ -122,5 +122,5 @@ const HeaderRight = styled.div`
 const ChatMessages = styled.div``
 
 const ChatBottom = styled.div`
-    padding-bottom:200px;
+    padding-bottom:170px;
 `

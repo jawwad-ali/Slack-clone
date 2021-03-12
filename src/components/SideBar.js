@@ -13,12 +13,13 @@ import AppsIcon from "@material-ui/icons/Apps"
 import ExpandLessIcon from "@material-ui/icons/ExpandLess"
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore"
 import AddIcon from "@material-ui/icons/Add"
-import { db } from '../firebase'
 import { useCollection } from "react-firebase-hooks/firestore"
+import { auth, db } from '../firebase'
+import { useAuthState } from "react-firebase-hooks/auth"
 
 function SideBar() {
     const [channels] = useCollection(db.collection("rooms"))
-
+    const [user] = useAuthState(auth)
     return (
         <>
             <SideBarContainer>
@@ -27,22 +28,12 @@ function SideBar() {
                         <h2>Slack Clone</h2>
                         <h3>
                             <FiberManualRecordIcon />
-                            Ali Jawwad
+                            {user?.displayName}
                         </h3>
                     </SideBarInfo>
                     <CreateIcon />
                 </SideBarHeader>
 
-                <SideBarOptions Icon={InsertCommentIcon} title="Threads" />
-                <SideBarOptions Icon={InboxIcon} title="Mentions & Threads" />
-                <SideBarOptions Icon={DraftsIcon} title="Saved Items" />
-                <SideBarOptions Icon={BookmarkBorderIcon} title="Channel Browser" />
-                <SideBarOptions Icon={PeopleAltIcon} title="People & user groups" />
-                <SideBarOptions Icon={AppsIcon} title="Apps" />
-                <SideBarOptions Icon={FileCopyIcon} title="File Browser" />
-                <SideBarOptions Icon={ExpandLessIcon} title="Show less" />
-
-                <hr />
                 <SideBarOptions Icon={ExpandMoreIcon} title="Channels" />
                 <hr />
                 <SideBarOptions Icon={AddIcon} addChannelOption title="Add Channel" />
